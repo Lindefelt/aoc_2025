@@ -27,7 +27,9 @@ defmodule D2 do
     recur(a + 1,b,acc )
   end
 
-
+  defp solve_p1(data) do
+    Enum.flat_map(data, fn {a,b} -> recur(a,b,[]) end) |> Enum.sum()
+  end
 
   defp find2(a,b,acc)
   when a > b, do: acc
@@ -59,27 +61,24 @@ defmodule D2 do
    end
   end
 
+  defp solve_p2(data) do
+    Enum.flat_map(data, fn {a,b} -> find2(a,b,[]) end)|> Enum.sum(
+)
+  end
 
   def main() do
     data = parse_input()
     #IO.inspect(data)
     d = Enum.map(data, fn s  -> String.split(s,"-") end) |> Enum.map( fn [a,b] -> {String.to_integer(a), String.to_integer(b)} end)
     #IO.inspect(d)
-    p1 = Enum.flat_map(d, fn {a,b} -> recur(a,b,[]) end)
-    #IO.inspect(p1)
-    sum_p1 = Enum.sum(p1)
-    IO.puts("P1: #{sum_p1}")
 
+    {time_p1,result_p1} = :timer.tc( fn -> solve_p1(d)end)
+    IO.puts("P1: #{result_p1}")
+    IO.puts("µs P1: #{time_p1}")
 
-    p2 = Enum.flat_map(d, fn {a,b} -> find2(a,b,[]) end)
-    #IO.inspect(p2)
-
-    sum_p2 = p2 |> Enum.sum()
-    IO.puts("P2: #{sum_p2}")
-
-
-
-
+    {time_p2,result_p2} = :timer.tc( fn -> solve_p2(d)end)
+    IO.puts("P2: #{result_p2}")
+    IO.puts("µs P2: #{time_p2}")
 
   end
 end

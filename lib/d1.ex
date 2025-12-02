@@ -1,7 +1,7 @@
 defmodule D1 do
   def main() do
 
-
+  {microseconds,_} = :timer.tc(fn ->
 
   file = File.read!("data/01/input.txt")
   #IO.puts(file)
@@ -52,5 +52,7 @@ defmodule D1 do
   IO.puts("P1: #{final_zeros}")
   IO.puts("P2: #{extra_zeros}")
   #IO.puts("Total Zero: #{final_zeros+extra_zeros}")
+  end)
+  IO.puts("Time in microseconds:#{microseconds}")
   end
 end
