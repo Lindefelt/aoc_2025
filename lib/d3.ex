@@ -4,16 +4,41 @@ defmodule D3 do
   defp parse_input() do
     "data/03/input.txt"
     |> File.read!()
-    |> String.split(",")
+    |> String.split()
 
   end
 
 
 
   defp solve_p1(data) do
-    "a"
+    integers = Enum.map(data, fn d -> d|>String.graphemes()|>Enum.map(&String.to_integer/1) end)
+    IO.inspect(integers)
+
+    Enum.map(integers, fn d -> find_maxes(d)  end)|> Enum.sum()
+
   end
 
+  defp find_maxes(ints) do
+   left = {left_val, left_idx} =
+    ints
+    |> Enum.drop(-1)
+    |> Enum.with_index()
+    |> Enum.max_by(fn {v, _i} -> v end)
+
+    right = {right_val, _} =
+    ints
+    |> Enum.drop(left_idx+1)
+    |> Enum.with_index()
+    |> Enum.max_by(fn {v, _i} -> v end)
+    IO.inspect(left)
+    IO.inspect(right)
+
+   val = "#{left_val}#{right_val}"
+
+    IO.puts("Val: #{val}")
+
+    String.to_integer(val)
+  end
 
   defp solve_p2(data) do
     "b"
@@ -21,17 +46,17 @@ defmodule D3 do
 
   def main() do
     data = parse_input()
-    #IO.inspect(data)
-    d = Enum.map(data, fn s  -> String.split(s,"-") end) |> Enum.map( fn [a,b] -> {String.to_integer(a), String.to_integer(b)} end)
+    IO.inspect(data)
+    d = data
     #IO.inspect(d)
 
     {time_p1,result_p1} = :timer.tc( fn -> solve_p1(d)end)
     IO.puts("P1: #{result_p1}")
     IO.puts("µs P1: #{time_p1}")
 
-    {time_p2,result_p2} = :timer.tc( fn -> solve_p2(d)end)
-    IO.puts("P2: #{result_p2}")
-    IO.puts("µs P2: #{time_p2}")
+    # {time_p2,result_p2} = :timer.tc( fn -> solve_p2(d)end)
+    # IO.puts("P2: #{result_p2}")
+    # IO.puts("µs P2: #{time_p2}")
 
   end
 end

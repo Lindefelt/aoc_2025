@@ -34,6 +34,14 @@
             "task": "d2",
             "projectDir": "${workspaceRoot}",
             "startApps": false
+        },
+                {
+            "type": "mix_task",
+            "name": "mix d3",
+            "request": "launch",
+            "task": "d3",
+            "projectDir": "${workspaceRoot}",
+            "startApps": false
         }
     ]
 }
