@@ -1,8 +1,8 @@
-defmodule Mix.Tasks.D2 do
+defmodule Mix.Tasks.D3 do
   use Mix.Task
 
   @shortdoc "Calls the Hello.say/0 function."
   def run(_) do
-    D2.main()
+    D3.main()
   end
 end

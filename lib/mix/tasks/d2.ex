@@ -1,6 +1,6 @@
-defmodule Mix.Tasks.D3 do
+defmodule Mix.Tasks.D2 do
   use Mix.Task
   def run(_) do
-    D3.main()
+    D2.main()
   end
 end
