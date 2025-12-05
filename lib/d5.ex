@@ -15,18 +15,11 @@ defmodule D5 do
       |> Enum.map(&String.to_integer/1)
       |> then( fn [s,e] -> s..e end) end)
     ids = d2 |> String.split() |> Enum.map(&String.to_integer/1)
-    IO.inspect(ranges)
-    IO.inspect(ids)
+    #IO.inspect(ranges)
+    #IO.inspect(ids)
 
     {ranges,ids}
   end
-
-  defp digits_per_row(data) do
-    Enum.map(data, fn d ->
-      d |> String.graphemes() |> Enum.map(&String.to_integer/1)
-    end)
-  end
-
 
   defp solve_p1(data) do
     {ranges,ids} = data
@@ -36,18 +29,37 @@ defmodule D5 do
   Enum.count(fresh)
   end
 
+ def merge_ranges(ranges) do
+  ranges
+  |> Enum.sort_by(& &1.first)
+  |> Enum.reduce([], fn r, acc ->
+    case acc do
+      [] ->
+        [r]
+
+      [prev | rest] ->
+        if r.first <= prev.last + 1 do
+          merged = prev.first..max(prev.last, r.last)
+          [merged | rest]
+        else
+          [r | acc]
+        end
+    end
+  end)
+
+end
+
 defp solve_p2({ranges, _ids}) do
   ranges
-  |> Enum.reduce(MapSet.new(), fn r, set ->
-    Enum.reduce(r, set, &MapSet.put(&2, &1))
-  end)
-  |> MapSet.size()
+  |> merge_ranges()
+  |> Enum.map(&Range.size/1)
+  |> Enum.sum()
 end
 
 
   def main() do
     data = parse_input()
-    IO.inspect(data)
+    #IO.inspect(data)
 
 
     {time_p1, result_p1} = :timer.tc(fn -> solve_p1(data) end)
