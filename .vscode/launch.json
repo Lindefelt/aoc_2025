@@ -51,5 +51,14 @@
             "projectDir": "${workspaceRoot}",
             "startApps": false
         }
+        ,
+                        {
+            "type": "mix_task",
+            "name": "mix d7",
+            "request": "launch",
+            "task": "d7",
+            "projectDir": "${workspaceRoot}",
+            "startApps": false
+        }
     ]
 }
