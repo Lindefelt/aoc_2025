@@ -60,5 +60,14 @@
             "projectDir": "${workspaceRoot}",
             "startApps": false
         }
+           ,
+                        {
+            "type": "mix_task",
+            "name": "mix d8",
+            "request": "launch",
+            "task": "d8",
+            "projectDir": "${workspaceRoot}",
+            "startApps": false
+        }
     ]
 }
